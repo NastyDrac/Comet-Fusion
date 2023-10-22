@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://vmdfhrg43bnm"]
+
+[ext_resource type="Script" path="res://moreCooldown.gd" id="1_gxnlt"]
+
+[node name="moreCooldown" type="Node2D"]
+script = ExtResource("1_gxnlt")

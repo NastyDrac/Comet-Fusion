@@ -1,0 +1,123 @@
+[gd_scene load_steps=10 format=3 uid="uid://f7y1n2e8if8x"]
+
+[ext_resource type="Script" path="res://map.gd" id="1_dpjxv"]
+[ext_resource type="PackedScene" uid="uid://c60h3virpqktj" path="res://fire_point.tscn" id="3_ev36l"]
+[ext_resource type="Texture2D" uid="uid://bv5e8tc2qyq1r" path="res://blankMeter.png" id="4_b1rjk"]
+[ext_resource type="Texture2D" uid="uid://ddtef2nbhk480" path="res://greenMeter.png" id="5_pvwtv"]
+[ext_resource type="PackedScene" uid="uid://h0ihmxkrapfx" path="res://drop_off.tscn" id="6_s4eo6"]
+
+[sub_resource type="Shader" id="Shader_58d65"]
+code = "shader_type canvas_item;
+
+uniform vec4 color1 : source_color;
+uniform vec4 color2 : source_color;
+uniform float threshold;
+uniform float intensity;
+uniform float opacity;
+uniform vec4 glow_color : source_color;
+
+void fragment() {
+	// Get the pixel color from the texture
+	vec4 pixel_color = texture(TEXTURE, UV);
+	
+	// Calculate the distance between the pixel color and the first source color
+	float distance = length(pixel_color - color1);
+	
+	// Calculate the distance between the pixel color and the second source color
+	float distance_second = length(pixel_color - color2);
+	
+	// Create a new variable to store the modified glow color
+	vec4 modified_glow_color = glow_color;
+	
+	// Set the alpha value of the modified glow color to the specified opacity
+	modified_glow_color.a = opacity;
+	
+	// If the distance to either source color is below the threshold, set the output color to a blend of the pixel color and the modified glow color
+	if (distance < threshold || distance_second < threshold) {
+		COLOR = mix(pixel_color, modified_glow_color * intensity, modified_glow_color.a);
+	}
+	// Otherwise, set the output color to the pixel color
+	else {
+		COLOR = pixel_color;
+	}
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ekvv1"]
+shader = SubResource("Shader_58d65")
+shader_parameter/color1 = null
+shader_parameter/color2 = null
+shader_parameter/threshold = null
+shader_parameter/intensity = null
+shader_parameter/opacity = null
+shader_parameter/glow_color = null
+
+[sub_resource type="Environment" id="Environment_xi46g"]
+background_mode = 3
+glow_enabled = true
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_mx6wl"]
+
+[node name="Node2D" type="Node2D" groups=["map"]]
+script = ExtResource("1_dpjxv")
+
+[node name="dropOff" parent="." instance=ExtResource("6_s4eo6")]
+position = Vector2(0, -15)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.75, 0.75)
+
+[node name="firePoint" parent="." instance=ExtResource("3_ev36l")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+offset = Vector2(-47.105, -427.045)
+transform = Transform2D(1, 0, 0, 1, -47.105, -427.045)
+follow_viewport_enabled = true
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -545.895
+offset_top = 21.045
+offset_right = -502.895
+offset_bottom = 47.045
+grow_horizontal = 2
+size_flags_vertical = 0
+text = "Score"
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer"]
+self_modulate = Color(0, 1, 1, 1)
+material = SubResource("ShaderMaterial_ekvv1")
+offset_left = 532.105
+offset_top = 2.04501
+offset_right = 572.105
+offset_bottom = 42.045
+scale = Vector2(8.12, 2.04)
+value = 100.0
+rounded = true
+texture_under = ExtResource("4_b1rjk")
+texture_progress = ExtResource("5_pvwtv")
+
+[node name="Timer" type="Timer" parent="CanvasLayer"]
+
+[node name="Label2" type="Label" parent="CanvasLayer"]
+offset_left = -699.895
+offset_top = 11.045
+offset_right = -659.895
+offset_bottom = 34.045
+
+[node name="Label3" type="Label" parent="CanvasLayer"]
+offset_left = 579.105
+offset_top = 11.045
+offset_right = 619.105
+offset_bottom = 60.045
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "50/100"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_xi46g")
+camera_attributes = SubResource("CameraAttributesPractical_mx6wl")
+
+[connection signal="timeout" from="CanvasLayer/Timer" to="." method="_on_timer_timeout"]

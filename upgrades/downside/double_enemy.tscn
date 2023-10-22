@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyobanfp7k81"]
+
+[ext_resource type="Script" path="res://doubleEnemy.gd" id="1_0qo3v"]
+
+[node name="doubleEnemy" type="Node2D" groups=["downside"]]
+script = ExtResource("1_0qo3v")

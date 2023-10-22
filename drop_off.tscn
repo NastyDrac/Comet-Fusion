@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://h0ihmxkrapfx"]
+
+[ext_resource type="Texture2D" uid="uid://bhfmtdtdd7s2i" path="res://star.png" id="1_artkd"]
+[ext_resource type="Script" path="res://dropOff.gd" id="2_xudh8"]
+[ext_resource type="Texture2D" uid="uid://dt3eub47bc3xg" path="res://fire.png" id="3_ywm8s"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pnce5"]
+radius = 77.0065
+
+[sub_resource type="Gradient" id="Gradient_aho71"]
+offsets = PackedFloat32Array(0, 0.582781, 1)
+colors = PackedColorArray(1, 1, 0, 1, 1, 0.662745, 0.0431373, 1, 1, 1, 0.568627, 1)
+
+[node name="dropOff" type="Sprite2D"]
+texture = ExtResource("1_artkd")
+script = ExtResource("2_xudh8")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 10)
+shape = SubResource("CircleShape2D_pnce5")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(-3.895, -3.16)
+amount = 50
+texture = ExtResource("3_ywm8s")
+emission_shape = 1
+emission_sphere_radius = 18.11
+gravity = Vector2(0, 0)
+initial_velocity_min = 40.4
+initial_velocity_max = 40.4
+angular_velocity_min = 25.0
+angular_velocity_max = 25.0
+tangential_accel_min = -15.0
+tangential_accel_max = 10.0
+angle_min = -29.1
+angle_max = 14.5
+color = Color(1, 0.917647, 0, 1)
+color_ramp = SubResource("Gradient_aho71")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

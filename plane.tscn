@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://c2vwmtidwd0pk"]
+
+[ext_resource type="Texture2D" uid="uid://cw8oy1sbdkqej" path="res://ship.png" id="1_u22bp"]
+[ext_resource type="Script" path="res://plane.gd" id="2_06kll"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b4ptf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aejui"]
+radius = 198.04
+
+[node name="plane" type="Sprite2D" groups=["player"]]
+position = Vector2(1, 1)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_u22bp")
+script = ExtResource("2_06kll")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(20, 48)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(43.68, 41.28)
+shape = SubResource("CircleShape2D_b4ptf")
+
+[node name="playerBody" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="playerBody"]
+position = Vector2(20, 48)
+shape = SubResource("CircleShape2D_aejui")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="playerBody" to="." method="_on_player_body_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
