@@ -1,0 +1,61 @@
+[gd_scene load_steps=4 format=3 uid="uid://d25uogxn1vvmo"]
+
+[ext_resource type="Script" path="res://Tutorial.gd" id="1_f87k3"]
+[ext_resource type="Texture2D" uid="uid://br4xj1kchsrd0" path="res://tutorial1.png" id="2_wa5cl"]
+[ext_resource type="Texture2D" uid="uid://djykch2f0oerx" path="res://splat.png" id="3_vu425"]
+
+[node name="Tutorial" type="Node2D"]
+script = ExtResource("1_f87k3")
+
+[node name="Tutorial1" type="Sprite2D" parent="."]
+position = Vector2(898, 187)
+texture = ExtResource("2_wa5cl")
+
+[node name="Label" type="Label" parent="Tutorial1"]
+offset_left = -119.0
+offset_top = 109.0
+offset_right = 251.0
+offset_bottom = 187.0
+text = "Hold down the mouse button
+To activate your magnet
+ and collect the comets."
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Tutorial1"]
+offset_left = -327.0
+offset_top = 157.0
+offset_right = -68.0
+offset_bottom = 209.0
+text = "Drop the comets off at the star to 
+refill you battery."
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="Tutorial1"]
+offset_left = -83.0
+offset_top = -126.0
+offset_right = 140.0
+offset_bottom = -100.0
+text = "Keep an eye on your battery."
+
+[node name="Label" type="Label" parent="."]
+offset_left = 39.0
+offset_top = 62.0
+offset_right = 513.0
+offset_bottom = 192.0
+text = "Don't let the comets hit you unless you have your magnet on.
+
+
+The star can only hold so many comets before it cools down.
+You will have to wait for it heat up again."
+
+[node name="Button" type="Button" parent="."]
+offset_left = 130.0
+offset_top = 249.0
+offset_right = 438.0
+offset_bottom = 483.0
+text = "I'm Ready!"
+icon = ExtResource("3_vu425")
+flat = true
+icon_alignment = 1
+
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]

@@ -41,7 +41,7 @@ _data = {
 }
 
 [node name="MagRing" type="Sprite2D"]
-self_modulate = Color(1, 1, 1, 0.313726)
+self_modulate = Color(1, 1, 1, 0.145098)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_25dwd")
 script = ExtResource("2_ruvww")

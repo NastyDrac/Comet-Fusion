@@ -12,7 +12,7 @@ func _physics_process(delta):
 	global_position = get_global_mouse_position()
 	
 	
-	if Input.get_action_strength("click"):
+	if Input.get_action_strength("click") and get_tree().get_first_node_in_group("map").battLife > 0:
 		var newRing = ring.instantiate()
 		magnet.add_child(newRing)
 

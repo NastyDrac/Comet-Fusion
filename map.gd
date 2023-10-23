@@ -30,6 +30,8 @@ func _process(delta):
 	battMeter.value = battLife
 	if battLife >= maxBatt:
 		battLife = maxBatt
+	if battLife <= 0:
+		battLife = 0
 		
 	containerInfo.text = " Processing: " + var_to_str(dropOff) + "/" + var_to_str(maxDropOff) + "\n Cooldown time: " + var_to_str(coolTime) + "\n Next lvl at: " + var_to_str(nextLevel) 
 	

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://no35i4t8qjvr"]
+[gd_scene load_steps=3 format=3 uid="uid://no35i4t8qjvr"]
 
 [ext_resource type="Script" path="res://levelUpScreen.gd" id="1_nr8n3"]
+[ext_resource type="Texture2D" uid="uid://djykch2f0oerx" path="res://splat.png" id="2_vnsc8"]
 
 [node name="levelUpScreen" type="Node2D" groups=["levelscreen"]]
 process_mode = 3
@@ -22,20 +23,42 @@ offset_right = 33.5
 offset_bottom = 15.5
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_vertical = 4
+size_flags_vertical = 8
 
 [node name="Button" type="Button" parent="CanvasLayer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 11
+icon = ExtResource("2_vnsc8")
+flat = true
+icon_alignment = 1
 
 [node name="Button3" type="Button" parent="CanvasLayer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 11
+icon = ExtResource("2_vnsc8")
+flat = true
+icon_alignment = 1
 
 [node name="Button2" type="Button" parent="CanvasLayer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 11
+icon = ExtResource("2_vnsc8")
+flat = true
+icon_alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 549.0
+offset_top = 482.0
+offset_right = 589.0
+offset_bottom = 505.0
+theme_override_font_sizes/font_size = 45
+text = "3"
+horizontal_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.001
 
 [connection signal="button_down" from="CanvasLayer/HBoxContainer/Button" to="." method="_on_button_button_down"]
 [connection signal="button_down" from="CanvasLayer/HBoxContainer/Button3" to="." method="_on_button_3_button_down"]
 [connection signal="button_down" from="CanvasLayer/HBoxContainer/Button2" to="." method="_on_button_2_button_down"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

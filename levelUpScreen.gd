@@ -21,24 +21,24 @@ func _on_button_button_down():
 
 	button1.get_child(0).newStuff()
 	button1.get_child(1).newStuff()
-	get_tree().paused = false
-	queue_free()
+	$Timer.start(3)
+
 
 
 func _on_button_3_button_down():
 
 	button3.get_child(0).newStuff()
 	button3.get_child(1).newStuff()
-	get_tree().paused = false
-	queue_free()
+	$Timer.start(3)
+
 
 
 func _on_button_2_button_down():
 
 	button2.get_child(0).newStuff()
 	button2.get_child(1).newStuff()
-	get_tree().paused = false
-	queue_free()
+	$Timer.start(3)
+
 
 
 func selectUpgrades(button):
@@ -63,3 +63,13 @@ func selectUpgrades(button):
 	
 	button.text = currentUpgrade.description + "\n BUT \n" + currentDownside.description
 	
+
+
+func _on_timer_timeout():
+	get_tree().paused = false
+	queue_free()
+	
+func _process(delta):
+	if $Timer.wait_time > 0.1:
+		var time : int = $Timer.time_left
+		$CanvasLayer/Label.text = var_to_str(time)
